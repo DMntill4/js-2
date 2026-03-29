@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>GestorNotas — Sistema Académico</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="app-wrapper">
+
+        <!-- ═══════════════════════════════
+            ENCABEZADO
+        ═══════════════════════════════ -->
+        <header class="app-header">
+        <div class="header-icono">🎓</div>
+        <div>
+            <h1 class="app-titulo">GestorNotas</h1>
+            <p class="app-subtitulo">Sistema de Gestión Académica Campus Land · Curso 2026</p>
+        </div>
+        <div class="header-contador">
+            <span id="contadorAlumnos">0</span>
+            <small>/ 10 alumnos</small>
+        </div>
+        </header>
+
+        <!-- ═══════════════════════════════
+            BARRA DE PROGRESO
+        ═══════════════════════════════ -->
+        <div class="barra-progreso">
+        <div class="barra-relleno" id="barraRelleno"></div>
+        </div>
+        <div class="puntos-progreso" id="puntosProgreso"></div>
+
+        <!-- ═══════════════════════════════
+            CONTENIDO PRINCIPAL (2 columnas)
+        ═══════════════════════════════ -->
+        <main class="contenido-principal">
+
+        <!-- ── PANEL IZQUIERDO: Formulario ── -->
+        <section class="panel">
+
+            <div class="panel-cabecera">
+            <span>✏️</span>
+            <h2>Ingresar Alumno</h2>
+            <span class="panel-etiqueta" id="etiquetaForm">Registro</span>
+            </div>
+
+            <!-- Mensaje de alerta -->
+            <div id="cajaMensaje" class="mensaje oculto"></div>
+
+            <!-- Formulario -->
+            <div class="formulario-cuerpo">
+
+            <div class="campo-grupo">
+                <label for="inputNombre">Nombre del Alumno</label>
+                <input type="text" id="inputNombre" placeholder="Ej: Diego Alejandro" maxlength="40" />
+            </div>
+
+            <div class="campo-grupo">
+                <label for="inputC1">Certamen 1</label>
+                <input type="number" id="inputC1" placeholder="0 – 100" min="0" max="100" />
+            </div>
+
+            <div class="campo-grupo">
+                <label for="inputC2">Certamen 2</label>
+                <input type="number" id="inputC2" placeholder="0 – 100" min="0" max="100" />
+            </div>
+
+            <div class="campo-grupo">
+                <label for="inputC3">Certamen 3</label>
+                <input type="number" id="inputC3" placeholder="0 – 100" min="0" max="100" />
+            </div>
+
+            <button class="btn-primario" id="btnAgregar" onclick="agregarAlumno()">
+                + Agregar Alumno
+            </button>
+
+            <button class="btn-secundario" onclick="reiniciarCurso()">
+                ↺ Reiniciar Curso
+            </button>
+
+            </div>
+
+            <!-- Lista pequeña de alumnos ingresados -->
+            <div class="mini-lista oculto" id="miniLista">
+            <p class="mini-lista-titulo">Alumnos ingresados</p>
+            <ul id="miniListaItems"></ul>
+            </div>
+
+        </section>
+
+        <!-- ── PANEL DERECHO: Resultados ── -->
+        <section class="panel">
+
+            <div class="panel-cabecera">
+            <span>📊</span>
+            <h2>Resultados del Curso</h2>
+            <span class="panel-etiqueta espera" id="etiquetaResultados">En espera</span>
+            </div>
+
+            <!-- Mensaje cuando todavía no hay datos -->
+            <div class="resultados-vacio" id="resultadosVacio">
+            <div class="icono-vacio">🎓</div>
+            <p>Los resultados aparecerán<br/>cuando agregues alumnos</p>
+            </div>
+
+            <!-- Resultados reales (ocultos al inicio) -->
+            <div id="resultadosContenido" class="oculto">
+
+            <!-- Tarjetas de resumen general -->
+            <div class="estadisticas-grid" id="estadisticasGrid"></div>
+
+            <!-- Promedios por certamen -->
+            <div class="certamenes-cards" id="certamenesCards"></div>
+
+            <!-- Tabla detallada -->
+            <div class="seccion-tabla">
+                <p class="seccion-titulo">📋 Detalle por Alumno</p>
+                <div class="tabla-contenedor">
+                <table class="tabla-notas">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>C1</th>
+                        <th>C2</th>
+                        <th>C3</th>
+                        <th>Promedio</th>
+                        <th>Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tablaBody"></tbody>
+                </table>
+                </div>
+            </div>
+
+            <!-- Ranking ordenado por promedio -->
+            <div class="seccion-ranking">
+                <p class="seccion-titulo">🏆 Ranking — Ordenado por Promedio</p>
+                <div id="listaRanking"></div>
+            </div>
+
+            </div>
+        </section>
+
+        </main>
+    </div>
+
+  <!-- Los 3 archivos JS se cargan en este orden -->
+  <script src="datos.js"></script>
+  <script src="calculos.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
